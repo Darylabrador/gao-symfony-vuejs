@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\ComputerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
-use App\Repository\ComputersRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ComputersRepository::class)
+ * @ORM\Entity(repositoryClass=ComputerRepository::class)
  */
-class Computers
+class Computer
 {
     /**
      * @ORM\Id
@@ -27,13 +27,13 @@ class Computers
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Assigns::class, mappedBy="computers")
+     * @ORM\OneToMany(targetEntity=Assign::class, mappedBy="computer")
      */
-    private $desktop_id;
+    private $assigns;
 
     public function __construct()
     {
-        $this->desktop_id = new ArrayCollection();
+        $this->assigns = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,29 +54,29 @@ class Computers
     }
 
     /**
-     * @return Collection|Assigns[]
+     * @return Collection|Assign[]
      */
-    public function getDesktopId(): Collection
+    public function getAssigns(): Collection
     {
-        return $this->desktop_id;
+        return $this->assigns;
     }
 
-    public function addDesktopId(Assigns $desktopId): self
+    public function addAssign(Assign $assign): self
     {
-        if (!$this->desktop_id->contains($desktopId)) {
-            $this->desktop_id[] = $desktopId;
-            $desktopId->setComputers($this);
+        if (!$this->assigns->contains($assign)) {
+            $this->assigns[] = $assign;
+            $assign->setComputer($this);
         }
 
         return $this;
     }
 
-    public function removeDesktopId(Assigns $desktopId): self
+    public function removeAssign(Assign $assign): self
     {
-        if ($this->desktop_id->removeElement($desktopId)) {
+        if ($this->assigns->removeElement($assign)) {
             // set the owning side to null (unless already changed)
-            if ($desktopId->getComputers() === $this) {
-                $desktopId->setComputers(null);
+            if ($assign->getComputer() === $this) {
+                $assign->setComputer(null);
             }
         }
 

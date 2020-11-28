@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientsRepository;
+use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ClientsRepository::class)
+ * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
-class Clients
+class Client
 {
     /**
      * @ORM\Id
@@ -30,13 +30,13 @@ class Clients
     private $surname;
 
     /**
-     * @ORM\OneToMany(targetEntity=Assigns::class, mappedBy="clients")
+     * @ORM\OneToMany(targetEntity=Assign::class, mappedBy="client")
      */
-    private $clients;
+    private $assigns;
 
     public function __construct()
     {
-        $this->clients = new ArrayCollection();
+        $this->assigns = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,29 +69,29 @@ class Clients
     }
 
     /**
-     * @return Collection|Assigns[]
+     * @return Collection|Assign[]
      */
-    public function getClients(): Collection
+    public function getAssigns(): Collection
     {
-        return $this->clients;
+        return $this->assigns;
     }
 
-    public function addClient(Assigns $client): self
+    public function addAssign(Assign $assign): self
     {
-        if (!$this->clients->contains($client)) {
-            $this->clients[] = $client;
-            $client->setClients($this);
+        if (!$this->assigns->contains($assign)) {
+            $this->assigns[] = $assign;
+            $assign->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeClient(Assigns $client): self
+    public function removeAssign(Assign $assign): self
     {
-        if ($this->clients->removeElement($client)) {
+        if ($this->assigns->removeElement($assign)) {
             // set the owning side to null (unless already changed)
-            if ($client->getClients() === $this) {
-                $client->setClients(null);
+            if ($assign->getClient() === $this) {
+                $assign->setClient(null);
             }
         }
 
