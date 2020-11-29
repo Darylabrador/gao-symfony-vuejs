@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AssignRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AssignRepository::class)
@@ -14,16 +15,19 @@ class Assign
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("attribution")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("attribution")
      */
     private $hours;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("attribution")
      */
     private $date;
 
@@ -34,8 +38,10 @@ class Assign
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="assigns")
+     * @Groups("attribution")
      */
     private $client;
+
 
     public function getId(): ?int
     {
