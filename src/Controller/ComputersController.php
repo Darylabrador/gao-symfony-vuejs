@@ -29,7 +29,7 @@ class ComputersController extends AbstractController
     /**
      * @Route("/api/computer/add", name="computer_add", methods={"POST"})
      */
-    public function create(Request $request, ComputerRepository $computerRepo): Response
+    public function create(Request $request, ComputerRepository $computerRepo, SerializerInterface $serializer): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $computerExist = $computerRepo->findOneBy(['name' => $data['name']]);
