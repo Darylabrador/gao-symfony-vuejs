@@ -28,13 +28,21 @@ class ComputersController extends AbstractController
 
         $computers = $computerRepository->findAllWithPagination($date);
 
+        $limit = 3;
+
         $computerPaginate = $paginatorInterface->paginate(
             $computers,  // Les données à paginé
             $page,       // Numéro de la page
-            3            // Nombre d'élément par page
+            $limit            // Nombre d'élément par page
         );
 
-        $json = $serializer->serialize($computerPaginate, 'json', ['groups' => 'attribution']);
+        $totalComputers = $computerRepository->findAllAndCount();
+        $data = [
+            'data'      => $computerPaginate,
+            'totalpage' => ceil($totalComputers / $limit)
+        ];
+
+        $json = $serializer->serialize($data, 'json', ['groups' => 'attribution']);
         $response = new JsonResponse($json, 200, [], true);
         return $response;
     }

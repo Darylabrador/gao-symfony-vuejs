@@ -29,6 +29,12 @@ class ComputerRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
+    public function findAllAndCount() {
+        return $this->createQueryBuilder('c')
+                    ->select("count(c.id)")
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }
 
     // /**
     //  * @return Computer[] Returns an array of Computer objects
