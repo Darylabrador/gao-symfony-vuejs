@@ -20,20 +20,22 @@ class ComputerRepository extends ServiceEntityRepository
         parent::__construct($registry, Computer::class);
     }
 
-    public function findAllWithPagination($date): Query
+    public function findAllQuery(): Query
     {
         return $this->createQueryBuilder('c')
-            ->leftJoin("c.assigns", "cassign")
-            ->where("cassign.date LIKE :val")
-            ->setParameter("val", '%' . $date . '%')
+            ->select('c')
+            // ->leftJoin("c.assigns", "cassign")
+            // ->where("cassign.date LIKE :val")
+            // ->setParameter("val", '%' . $date . '%')
             ->getQuery();
     }
 
-    public function findAllAndCount() {
+    public function findAllAndCount()
+    {
         return $this->createQueryBuilder('c')
-                    ->select("count(c.id)")
-                    ->getQuery()
-                    ->getSingleScalarResult();
+            ->select("count(c.id)")
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     // /**
