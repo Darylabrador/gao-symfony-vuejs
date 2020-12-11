@@ -1,14 +1,24 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
+/**
+ * Main file with all routes and components
  */
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import Routes from './routes';
+import Layout from './layouts/Layout.vue';
+import 'vuetify/dist/vuetify.min.css';
+import FlashMessage from '@smartweb/vue-flash-message';
+import _ from 'lodash';
 
-// any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+// Vue using Vuetify
+Vue.use(Vuetify);
+Vue.use(FlashMessage);
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
+// Main component that use Layout and it's component from app.blade.php
+const main = new Vue({
+    el: '#app',
+    vuetify: new Vuetify({}),
+    router: Routes,
+    components: { Layout }
+})
 
-console.log('Hello Webpack Encore! Edit me in assets/app.js');
+export default new Vuetify(main);
