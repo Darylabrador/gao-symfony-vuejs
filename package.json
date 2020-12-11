@@ -15,5 +15,11 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@smartweb/vue-flash-message": "^0.6.10",
+        "axios": "^0.21.0",
+        "vue-router": "^3.4.9",
+        "vuetify": "^2.3.21"
     }
 }
