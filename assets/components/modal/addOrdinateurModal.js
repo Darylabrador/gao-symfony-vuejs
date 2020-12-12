@@ -30,25 +30,27 @@ export default {
          */
         async validate() {
             try {
-                const newDesktop = await Axios.post('http://localhost:3000/api/computers', { name: this.name }, {
+                const newDesktop = await Axios.post('/api/computer/add', { name: this.name }, {
                     headers: {
                         Authorization: `Bearer ${tokenConfig.getToken()}`
                     }
                 });
-                
-                const responseData = newDesktop.data;
-                if (responseData.success) {
-                    this.flashMessage.success({
-                        message: responseData.message,
-                        time: 5000,
-                    });
-                    this.$emit('addingDesktop', responseData.content);
-                } else {
-                    this.flashMessage.error({
-                        message: responseData.message,
+
+                if (newDesktop.data.success != undefined){
+                    return this.flashMessage.error({
+                        message: newDesktop.data.message,
                         time: 5000,
                     });
                 }
+              
+                const responseData = newDesktop.data;
+                this.flashMessage.success({
+                    message: "Poste ajouté avec succès",
+                    time: 5000,
+                });
+                this.$emit('addingDesktop', responseData);
+                this.dialog = false;
+                this.name = "";
             } catch (error) {
                 this.flashMessage.error({
                     message: "Une erreur est survenue",
