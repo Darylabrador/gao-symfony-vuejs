@@ -96,7 +96,8 @@ export default {
          * @param {Object} newDesktop 
          */
         addDesktop(newDesktop) {
-            this.ordinateurs.push(newDesktop)
+            // this.ordinateurs.push(newDesktop)
+            this.getAll();
         },
 
 
