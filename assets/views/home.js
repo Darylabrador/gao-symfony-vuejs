@@ -27,10 +27,6 @@ export default {
         return {
             ordinateurs: [],
             currentDate: new Date().toISOString().substr(0, 10),
-            hasNextPage: null,
-            hasPreviousPage: null,
-            nextPage: null,
-            previousPage: null,
             totalPage: null,
             currentPage: 1
         }
@@ -67,7 +63,7 @@ export default {
         async getAll(){
             try {
                 this.ordinateurs = [];
-                const responseData = await Axios.get('http://127.0.0.1:3000/api/computers', {
+                const responseData = await Axios.get('/api/computers', {
                     params: {
                         date: this.currentDate,
                         page: this.currentPage
@@ -77,19 +73,16 @@ export default {
                     }
                 });
 
-                const desktopInfo = responseData.data.desktopInfo;
+                const desktopInfo = responseData.data.data;
                 desktopInfo.forEach(info => {
                     this.ordinateurs.push(info)
                 })
 
                 // Paginations informations 
-                this.hasNextPage     = responseData.data.hasNextPage;
-                this.hasPreviousPage = responseData.data.hasPreviousPage;
-                this.nextPage        = responseData.data.nextPage;
-                this.previousPage    = responseData.data.previousPage;
-                this.totalPage       = responseData.data.totalPage;
+                this.totalPage = responseData.data.totalpage;
 
             } catch (error) {
+                console.log(error)
                 this.flashMessage.error({
                     message: "Ressource indisponible",
                     time: 5000,

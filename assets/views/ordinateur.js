@@ -65,7 +65,7 @@ export default {
         initialize(){
             this.attribution.forEach(attr => {
                 this.attributions[attr.hours] = {
-                    client: attr.Client,
+                    client: attr.client,
                     date: attr.date,
                     idAttribution: attr.id
                 }
@@ -116,7 +116,7 @@ export default {
          */
         infoAttribution(val) {
             this.attributions[val.hours] = {
-                client: val.Client,
+                client: val.client,
                 date: val.date,
                 idAttribution: val.id
             }
