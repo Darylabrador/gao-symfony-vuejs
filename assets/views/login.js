@@ -24,22 +24,18 @@ export default {
         async validate() {
             let isReady = this.$refs.form.validate();
             let dataSend = {
-                email : this.email,
+                username : this.email,
                 password : this.password
             }
             if(isReady) {
-                const connectInfo = await Axios.post('http://127.0.0.1:3000/api/login', dataSend);
-                if(connectInfo.data.success) {
+                try {
+                    const connectInfo = await Axios.post('/api/login_check', dataSend);
                     tokenConfig.setToken(connectInfo.data.token);
                     location.href = '/';
                     // this.$router.push('/');
-                    this.flashMessage.success({
-                        message: connectInfo.data.message,
-                        time: 5000,
-                    });
-                } else {
+                } catch (error) {
                     this.flashMessage.error({
-                        message: connectInfo.data.message,
+                        message: "Mot de passe ou identifiant incorrecte",
                         time: 5000,
                     });
                 }
