@@ -17,12 +17,12 @@ use App\Repository\ComputerRepository;
 class ClientController extends AbstractController
 {
     /**
-     * @Route("/api/client/search", name="autocomplete", methods={"POST"})
+     * @Route("/api/client/search", name="autocomplete", methods={"GET"})
      */
     public function autocomplete(Request $request, ClientRepository $clientRepository, SerializerInterface $serializer): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-        $clients = $clientRepository->findClients($data['clientInfo']);
+        $data = $request->get('client');
+        $clients = $clientRepository->findClients($data);
         $json = $serializer->serialize($clients, 'json', ['groups' => 'searchClient']);
         $response = new JsonResponse($json, 200, [], true);
         return $response;

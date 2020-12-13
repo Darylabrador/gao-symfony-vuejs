@@ -69,7 +69,7 @@ export default {
         querySelections(v) {
             if (v.length > 2) {
                 setTimeout(() => {
-                    Axios.get('http://127.0.0.1:3000/api/clients/search', {
+                    Axios.get('/api/client/search', {
                         params: {
                             client: v
                         },
@@ -77,7 +77,7 @@ export default {
                             Authorization: `Bearer ${tokenConfig.getToken()}`
                         }
                     }).then(reponse => {
-                        let reponseData = reponse.data.clientList;
+                        let reponseData = reponse.data;
                         
                         if (reponseData.length == 0 && this.client == null) {
                             this.disabledAddButton = false;
@@ -112,20 +112,17 @@ export default {
                     desktopId: this.ordinateurId
                 }
     
-                const attributions = await Axios.post('http://127.0.0.1:3000/api/attributions', dataSend);
-                if(attributions.data.success) {
-                    this.flashMessage.success({
-                        message: attributions.data.message,
-                        time: 5000,
-                    });
-                    this.close();
-                    this.$emit('nouvellAttribution', attributions.data.content);
-                } else {
-                    this.flashMessage.error({
-                        message: attributions.data.message,
-                        time: 5000,
-                    });
-                }
+                const attributions = await Axios.post('/api/computer/attribution', dataSend,{
+                    headers: {
+                        Authorization: `Bearer ${tokenConfig.getToken()}`
+                    }
+                });
+                this.flashMessage.success({
+                    message: attributions.data.message,
+                    time: 5000,
+                });
+                this.close();
+                this.$emit('nouvellAttribution', attributions.data.content);
             } else {
                 this.flashMessage.error({
                     message: "Client inexistant",
