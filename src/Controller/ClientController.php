@@ -42,7 +42,7 @@ class ClientController extends AbstractController
         $doctrine = $this->getDoctrine()->getManager();
         $doctrine->persist($client);
 
-        $computer = $computerRepository->find($data['desktop_id']);
+        $computer = $computerRepository->find($data['desktop']);
         $date = new \DateTime($data['date']);
 
         $attribution = new Assign();
@@ -53,7 +53,12 @@ class ClientController extends AbstractController
         $doctrine->persist($attribution);
         $doctrine->flush();
 
-        $json = $serializer->serialize($attribution, 'json', ['groups' => 'clientinfo']);
+        $responseData = [
+            "message" => "Créneau réservé",
+            "content" => $attribution,
+        ];
+
+        $json = $serializer->serialize($responseData, 'json', ['groups' => 'clientinfo']);
         $response = new JsonResponse($json, 200, [], true);
         return $response;
     }

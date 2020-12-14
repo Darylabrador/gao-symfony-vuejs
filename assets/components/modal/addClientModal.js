@@ -54,31 +54,30 @@ export default {
          * Create client and assign in timeslot
          */
         async createClient() {
-            const newClient = await Axios.post(`http://127.0.0.1:3000/api/clients/attribution`,
-            {
-                name: this.name,
-                surname: this.surname,
-                desktop: this.ordinateurId,
-                hours: this.heureAttribution,
-                date: this.currentDate
-            },
-            {
-                headers: 
-                {
-                    Authorization: `Bearer ${tokenConfig.getToken()}`
-                }
-            });
-
-            if (newClient.data.success) {
+            try {
+                const newClient = await Axios.post(`/api/client/create`,
+                    {
+                        name: this.name,
+                        surname: this.surname,
+                        desktop: this.ordinateurId,
+                        hours: this.heureAttribution,
+                        date: this.currentDate
+                    },
+                    {
+                        headers:
+                        {
+                            Authorization: `Bearer ${tokenConfig.getToken()}`
+                        }
+                    });
                 this.flashMessage.success({
                     message: newClient.data.message,
                     time: 5000,
                 });
                 this.close();
                 this.$emit("newClientAttribution", newClient.data.content);
-            } else {
+            } catch (error) {
                 this.flashMessage.error({
-                    message: newClient.data.message,
+                    message: "Impossible de réserver ce créneaux",
                     time: 5000,
                 });
             }
