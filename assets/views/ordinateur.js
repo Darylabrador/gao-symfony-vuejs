@@ -5,6 +5,7 @@
 import AddAttribution    from '../components/modal/AddAttribution.vue';
 import RemoveAttribution from '../components/modal/RemoveAttribution.vue';
 import RemoveOrdinateur  from '../components/modal/RemoveOrdinateur.vue';
+import ModificationOrdi  from '../components/modal/RenameOrdi.vue';
 
 export default {
 
@@ -14,7 +15,8 @@ export default {
     components: {
         AddAttribution,
         RemoveAttribution,
-        RemoveOrdinateur
+        RemoveOrdinateur,
+        ModificationOrdi
     },
 
 
@@ -39,6 +41,7 @@ export default {
             attributionDialog: false,
             removeAttributionDialog: false,
             deleteOrdiDialog: false,
+            modifDialog: false,
             heureAttribution: "",
             selectedDesktop: "",
             attributionId: ""
@@ -172,6 +175,24 @@ export default {
          */
         removeDesktopInfo(ordinateur) {
             this.$emit('removeDesktop', ordinateur);
-        }
+        },
+
+
+        /**
+         * Handle renamed desktop
+         */
+        renamedOrdi(ordinateur){
+            this.$emit('removeDesktop', ordinateur);
+        },
+
+        /**
+         * Handle the click to rename desktop
+         * @param {Boolean} dialog 
+         * @param {Number} ordinateurId 
+         */
+        handleRename(dialog, ordinateurId) {
+            this.modifDialog     = dialog;
+            this.selectedDesktop = ordinateurId;
+        },
     }
 }
