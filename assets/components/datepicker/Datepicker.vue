@@ -1,7 +1,6 @@
 <template>
-  <div class="w-50">
+  <div>
     <v-row>
-      <v-col cols="12" lg="6">
         <v-menu
           ref="menu1"
           v-model="menu1"
@@ -25,7 +24,6 @@
           </template>
           <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
         </v-menu>
-      </v-col>
     </v-row>
   </div>
 </template>

@@ -1,7 +1,10 @@
 <template>
     <v-container fluid>
-        <datepicker @changementDate="nouvellDate" />
-        <addOrdinateurModal @addingDesktop="addDesktop"/>
+        <div class="d-flex">
+
+            <datepicker @changementDate="nouvellDate" />
+            <addOrdinateurModal @addingDesktop="addDesktop"/>
+        </div>
 
             <v-pagination
             v-model="currentPage"
