@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" persistent max-width="400">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon color="primary" dark v-bind="attrs" v-on="on" >
+        <v-btn icon color="teal" dark v-bind="attrs" v-on="on" >
           <v-icon>mdi-plus-circle-outline</v-icon>
         </v-btn>
       </template>
