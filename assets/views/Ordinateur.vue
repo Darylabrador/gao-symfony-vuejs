@@ -21,13 +21,13 @@
     </v-card-title>
   
     <v-row v-for="timeslot in timeslots" :key="timeslot.id" no-gutters>
-      <v-col cols="2" class="text-center  border-bottom border-right border-dark">
+      <v-col cols="2" class="text-center  border-bottom border-light">
         {{ timeslot.heure }}h
       </v-col>      
-      <v-col cols="8" class="pl-2 border-right border-bottom border-dark">
+      <v-col cols="8" class="pl-2 border-bottom border-light">
         {{ timeslot.attribution }}
       </v-col>      
-      <v-col cols="2" class="border-bottom border-dark">
+      <v-col cols="2" class="border-bottom border-light">
         <v-btn color="red" text v-if="timeslot.attribution != ''" @click="removeAttribution(true, timeslot.idAttribution)">
           <v-icon> mdi-delete </v-icon>
         </v-btn>
