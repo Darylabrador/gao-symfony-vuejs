@@ -1,5 +1,4 @@
-import Axios from 'axios';
-import tokenConfig from '../../utils/tokenConfig';
+import { apiService } from "../../services/apiService";
 
 export default {
     props: {
@@ -42,11 +41,7 @@ export default {
                     name: this.renameOrdi,
     
                 };
-                const ordiData = await Axios.put(`/api/computer/update/${this.ordinateurId}`, dataSend, {
-                    headers: {
-                        Authorization: `Bearer ${tokenConfig.getToken()}`
-                    }
-                });
+                const ordiData = await apiService.put(`/computer/update/${this.ordinateurId}`, dataSend);
                 let responseData = ordiData.data;
                 if (responseData.success) {
                     this.flashMessage.success({

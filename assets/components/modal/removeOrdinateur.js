@@ -3,8 +3,7 @@
  */
 
 
-import Axios from 'axios';
-import tokenConfig from '../../utils/tokenConfig';
+import { apiService } from "../../services/apiService";
 
 export default {
 
@@ -34,11 +33,7 @@ export default {
          * Delete desktop from BDD and inform parent component
          */
         deleteOrdinateur() {
-            Axios.delete(`/api/computer/delete/${this.ordinateur}`, {
-                headers: {
-                    Authorization: `Bearer ${tokenConfig.getToken()}`
-                }
-            }).then(() => {
+            apiService.delete(`/computer/delete/${this.ordinateur}`).then(() => {
                 this.$emit("removeDesktop", this.ordinateur);
                 this.flashMessage.success({
                     message: "Suppression effectuée",

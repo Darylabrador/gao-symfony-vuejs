@@ -3,8 +3,7 @@
  */
 
 
-import Axios from 'axios';
-import tokenConfig from '../../utils/tokenConfig';
+import { apiService } from "../../services/apiService";
 
 export default {
     data: () => ({
@@ -30,11 +29,7 @@ export default {
          */
         async validate() {
             try {
-                const newDesktop = await Axios.post('/api/computer/add', { name: this.name }, {
-                    headers: {
-                        Authorization: `Bearer ${tokenConfig.getToken()}`
-                    }
-                });
+                const newDesktop = await apiService.post('/computer/add', { name: this.name });
 
                 if (newDesktop.data.success != undefined){
                     return this.flashMessage.error({

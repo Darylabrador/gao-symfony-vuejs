@@ -1,8 +1,7 @@
 /**
  * Add assignment js file
  */
-import Axios from 'axios';
-import tokenConfig from '../../utils/tokenConfig';
+import { apiService } from "../../services/apiService";
 import AddClientModal from './AddClientModal.vue';
 
 export default {
@@ -69,12 +68,9 @@ export default {
         querySelections(v) {
             if (v.length > 2) {
                 setTimeout(() => {
-                    Axios.get('/api/client/search', {
+                    apiService.get('/client/search', {
                         params: {
                             client: v
-                        },
-                        headers: {
-                            Authorization: `Bearer ${tokenConfig.getToken()}`
                         }
                     }).then(reponse => {
                         let reponseData = reponse.data;
@@ -112,11 +108,7 @@ export default {
                     desktopId: this.ordinateurId
                 }
     
-                const attributions = await Axios.post('/api/computer/attribution', dataSend,{
-                    headers: {
-                        Authorization: `Bearer ${tokenConfig.getToken()}`
-                    }
-                });
+                const attributions = await apiService.post('/computer/attribution', dataSend);
                 this.flashMessage.success({
                     message: attributions.data.message,
                     time: 5000,

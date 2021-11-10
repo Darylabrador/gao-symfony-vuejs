@@ -1,10 +1,8 @@
 /**
  * Login js file
  */
-
-
-import Axios from 'axios';
 import tokenConfig from '../utils/tokenConfig';
+import { apiService } from "../services/apiService";
 
 export default {
     data: () => ({
@@ -29,7 +27,7 @@ export default {
             }
             if(isReady) {
                 try {
-                    const connectInfo = await Axios.post('/api/login_check', dataSend);
+                    const connectInfo = await apiService.post('/login_check', dataSend);
                     tokenConfig.setToken(connectInfo.data.token);
                     location.href = '/';
                     // this.$router.push('/');

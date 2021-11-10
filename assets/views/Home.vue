@@ -1,7 +1,6 @@
 <template>
     <v-container fluid>
         <div class="d-flex">
-
             <datepicker @changementDate="nouvellDate" />
             <addOrdinateurModal @addingDesktop="addDesktop"/>
         </div>

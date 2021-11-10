@@ -2,8 +2,7 @@
  * Remove assignment js file
  */
 
-import Axios from 'axios';
-import tokenConfig from '../../utils/tokenConfig';
+import { apiService } from "../../services/apiService";
 
 export default {
 
@@ -33,11 +32,7 @@ export default {
          * Delete specific assignment and inform the parent component
          */
         remove(){
-            Axios.delete(`/api/attribution/delete/${this.attributionInfo}`, {
-                headers: {
-                    Authorization: `Bearer ${tokenConfig.getToken()}`
-                }
-            }).then(() => {
+            apiService.delete(`/attribution/delete/${this.attributionInfo}`).then(() => {
                 this.$emit("removedAttribution", this.attributionInfo);
                 this.flashMessage.success({
                     message: "Suppression effectuée",

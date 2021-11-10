@@ -2,8 +2,7 @@
  * Add client js file
  */
 
-import Axios from 'axios';
-import tokenConfig from '../../utils/tokenConfig';
+import { apiService } from "../../services/apiService";
 
 export default {
     /**
@@ -55,19 +54,13 @@ export default {
          */
         async createClient() {
             try {
-                const newClient = await Axios.post(`/api/client/create`,
+                const newClient = await apiService.post(`/client/create`,
                     {
                         name: this.name,
                         surname: this.surname,
                         desktop: this.ordinateurId,
                         hours: this.heureAttribution,
                         date: this.currentDate
-                    },
-                    {
-                        headers:
-                        {
-                            Authorization: `Bearer ${tokenConfig.getToken()}`
-                        }
                     });
                 this.flashMessage.success({
                     message: newClient.data.message,
