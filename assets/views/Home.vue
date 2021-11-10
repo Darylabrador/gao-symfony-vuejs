@@ -14,7 +14,7 @@
 
         <v-row>
             <v-col cols="12" md="4" v-for="(ordi, key ) in ordinateurs" :key="key">
-                <ordinateur :ordinateurName="ordi.name" :ordinateurId="ordi.id" :attribution="ordi.assigns" :currentDate="currentDate" @removeDesktop="removeDesktopInfo" />
+                <ordinateur :ordinateurName="ordi.name" :ordinateurId="ordi.id" :attributionList="ordi.assigns" :currentDate="currentDate" @removeDesktop="removeDesktopInfo" />
             </v-col>
         </v-row>
     </v-container>

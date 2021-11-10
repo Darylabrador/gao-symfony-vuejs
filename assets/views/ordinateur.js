@@ -26,7 +26,7 @@ export default {
     props: {
         ordinateurName: {},
         ordinateurId: {},
-        attribution: {},
+        attributionList: {},
         currentDate: {}
     },
 
@@ -66,7 +66,8 @@ export default {
          * Create attribution array from existing data
          */
         initialize(){
-            this.attribution.forEach(attr => {
+            let attrValues = Object.values(this.attributionList)
+            attrValues.forEach(attr => {
                 this.attributions[attr.hours] = {
                     client: attr.client,
                     date: attr.date,
